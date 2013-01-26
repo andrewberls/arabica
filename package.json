@@ -1,0 +1,32 @@
+{
+  "name": "kona-cli",
+  "version": "0.0.1",
+  "description": "Command-line build tool for Kona.js projects",
+  "bin": {
+    "kona": "./bin/kona"
+  },
+  "engines": {
+    "node": "~0.8.2"
+  },
+  "dependencies": {
+    "coffee-script": "~1.4.0",
+    "uglify-js": "~2.2.3",
+    "underscore": "~1.4.3",
+    "async": "~0.1.22",
+    "cli-color": "~0.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrewberls/kona-cli.git"
+  },
+  "keywords": [
+    "kona",
+    "coffeescript",
+    "javascript",
+    "build",
+    "compile"
+  ],
+  "bugs": "https://github.com/andrewberls/kona-cli/issues",
+  "author": "Andrew Berls",
+  "license": "MIT"
+}

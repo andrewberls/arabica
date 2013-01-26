@@ -1,0 +1,12 @@
+#! /usr/bin/env node
+
+var path = require('path'),
+    fs   = require('fs'),
+    lib  = path.join(path.dirname(fs.realpathSync(__filename)), '../lib');
+    cli  = require(lib + '/cli');
+
+if (process.argv[2] === "build") {
+  cli.build(process.argv[3]);
+} else {
+  console.log("Unrecognized command: " + process.argv[3])
+}
