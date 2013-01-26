@@ -97,7 +97,7 @@ concatAndUglify = ->
 write = (content) ->
   fs.writeFile config.out, content, 'utf8', (err) ->
     if err
-      console.error clc.red('An error occurred writing the output file.')
+      console.error clc.red('An error occurred compiling the output file.')
       process.exit(1)
 
-    console.log clc.green("Finished compiling to #{config.out}")
+    console.log clc.green("Successfully compiled to #{config.out}")
