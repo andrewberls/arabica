@@ -5,8 +5,19 @@ var path = require('path'),
     lib  = path.join(path.dirname(fs.realpathSync(__filename)), '../lib');
     cli  = require(lib + '/cli');
 
-if (process.argv[2] === "build") {
-  cli.build(process.argv[3]);
+var cmd = process.argv[2],
+    arg = process.argv[3];
+
+if (cmd === "build") {
+  cli.build(arg);
+} else if (cmd === "new") {
+  // TODO: initialize new project
 } else {
-  console.log("Unrecognized command: " + process.argv[3])
+  console.log(
+    (cmd === undefined ? "" : "Unrecognized command: " + cmd + "\n\n")+
+    "Usage: kona COMMAND, where COMMAND is one of:\n"+
+    "  build [DIRECTORY=.]    # Build a project using the config.json file specified in DIRECTORY (defaults to current directory)\n"+
+    "  new NAME               # Create a new Kona project called NAME with a default directory structure and configuration"+
+    "\n\n"
+  )
 }
