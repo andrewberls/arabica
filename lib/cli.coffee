@@ -1,4 +1,4 @@
-clc    = require('cli-color')
+color    = require('cli-color')
 fs     = require('fs')
 files  = []
 config = {}
@@ -10,7 +10,7 @@ exports.build = (dir) ->
     try
       process.chdir(dir)
     catch err
-      console.error clc.red('Directory not found: ' + dir)
+      console.error color.red('Directory not found: ' + dir)
       process.exit(1)
 
   config_path = "#{process.cwd()}/config.json"
@@ -28,9 +28,8 @@ exports.build = (dir) ->
 
       for path in config.paths
         if !fs.existsSync(path)
-          console.warn clc.yellow("File #{path} doesn't exist")
-          callback()
-          return
+          console.warn color.yellow("File #{path} doesn't exist, skipping")
+          continue
 
         if fs.statSync(path).isFile()
           fileObj = {
@@ -41,38 +40,38 @@ exports.build = (dir) ->
           fileObj.content = fs.readFileSync(path)
           files.push(fileObj)
 
-      # All files have been processed and added to our "global" `files` array
+      # All files have been processed and added to the global files array
       # Concatenate all coffeescripts, and write them along with any ordinary javascripts
       concatenate()
       compile()
-      console.log clc.green("Successfully compiled to #{config.out}")
+      console.log color.green("Successfully compiled to #{config.out}")
     catch err
-      throw err
-      # console.error clc.red('Something went wrong, please check your config.json syntax')
+      console.error color.red('Something went wrong, please check your config.json syntax')
       process.exit(1)
   else
-    console.error clc.red("No config.json file found in #{process.cwd()}")
+    console.error color.red("No config.json file found in #{process.cwd()}")
     process.exit(1)
 
 
-# Put any javascripts at the head of <config.out>.js, and concatenate coffeescripts
+# Put any javascripts at the head of the output file, and concatenate coffeescripts
 # to a temporary file for single compilation in compile()
 concatenate = ->
   for file in files
-    if file.language == "js"
-      fs.appendFileSync(config.out, file.content)
-    else if file.language == "coffee"
-      fs.appendFileSync("__in.coffee", file.content)
+    outfile = switch file.language
+      when "js"     then config.out
+      when "coffee" then "__in.coffee"
+    fs.appendFileSync(outfile, file.content)
 
 
+# Compile all concatenated coffeescripts and append to the output file,
+# minifying if specified in config
 compile = ->
   coffee = require('coffee-script')
+  output = coffee.compile(fs.readFileSync('__in.coffee').toString(), { bare: on })
+
   if config.uglify == true
     UglifyJS = require("uglify-js")
-    initial  = coffee.compile(fs.readFileSync('__in.coffee').toString(), { bare: on })
-    src      = UglifyJS.minify(initial, { fromString: true }).code
-  else
-    src = coffee.compile(fs.readFileSync('__in.coffee').toString(), { bare: on })
+    output   = UglifyJS.minify(output, { fromString: true }).code
 
-  fs.appendFileSync(config.out, src)
+  fs.appendFileSync(config.out, output)
   fs.unlinkSync('__in.coffee')
