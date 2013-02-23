@@ -1,6 +1,6 @@
 {
   "name": "kona-cli",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Command-line build tool for Kona.js projects",
   "bin": {
     "kona": "./bin/kona"
@@ -12,7 +12,6 @@
     "coffee-script": "~1.4.0",
     "uglify-js": "~2.2.3",
     "underscore": "~1.4.3",
-    "async": "~0.1.22",
     "cli-color": "~0.2.1"
   },
   "repository": {

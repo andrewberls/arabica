@@ -47,7 +47,8 @@ exports.build = (dir) ->
       compile()
       console.log clc.green("Successfully compiled to #{config.out}")
     catch err
-      console.error clc.red('Something went wrong, please check your config.json syntax')
+      throw err
+      # console.error clc.red('Something went wrong, please check your config.json syntax')
       process.exit(1)
   else
     console.error clc.red("No config.json file found in #{process.cwd()}")
@@ -66,6 +67,12 @@ concatenate = ->
 
 compile = ->
   coffee = require('coffee-script')
-  src    = coffee.compile(fs.readFileSync('__in.coffee').toString(), { bare: on })
+  if config.uglify == true
+    UglifyJS = require("uglify-js")
+    initial  = coffee.compile(fs.readFileSync('__in.coffee').toString(), { bare: on })
+    src      = UglifyJS.minify(initial, { fromString: true }).code
+  else
+    src = coffee.compile(fs.readFileSync('__in.coffee').toString(), { bare: on })
+
   fs.appendFileSync(config.out, src)
   fs.unlinkSync('__in.coffee')
