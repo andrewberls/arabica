@@ -1,9 +1,9 @@
 cli:
-	coffee -c lib/*.coffee
+	coffee -o build/ -c lib/*.coffee
 
 # Perform a local install (for development)
 install:
 	sudo npm install . -g
 
 clean:
-	rm lib/*.js
+	rm -rf build
