@@ -19,8 +19,9 @@ switch(cmd) {
     console.log(
       (cmd === undefined ? "" : "Unrecognized command: " + cmd + "\n\n")+
       "Usage: arabica COMMAND, where COMMAND is one of:\n"+
-      "  build [DIRECTORY=.]    # Build a project using the config.json file specified in DIRECTORY (defaults to current directory)\n"+
-      "\n\n"
+      "  build [DIRECTORY=.]    # Build a project using the arabica.json file specified in DIRECTORY (defaults to current directory)\n"+
+      "  clean                  # Remove the output file specified in arabica.json"+
+      "\n"
     );
     break;
 }

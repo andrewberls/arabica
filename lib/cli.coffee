@@ -4,7 +4,7 @@ files  = []
 config = {}
 
 
-# Return the contents of config.json, or exit with an error if it doesn't exist
+# Return the contents of arabica.json, or exit with an error if it doesn't exist
 read_config = ->
   config_path = "#{process.cwd()}/arabica.json"
   if fs.existsSync(config_path)
@@ -17,7 +17,7 @@ read_config = ->
     process.exit(1)
 
 
-# Concatenate and compile the project at <dir>, using options specified in config.json
+# Concatenate and compile the project at <dir>, using options specified in arabica.json
 # Options:
 #   paths: An array of file paths (.js or .coffee)
 #   out: The filename to output to
@@ -87,7 +87,7 @@ compile = ->
   fs.unlinkSync('__in.coffee')
 
 
-# Remove the output file specified in config.json
+# Remove the output file specified in arabica.json
 exports.clean = ->
   config = read_config()
 
