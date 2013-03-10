@@ -5,7 +5,7 @@ Arabica is a simple tool for building CoffeeScript/JavaScript projects. It will 
 ## Configuration
 Project options are specified in `arabica.json`, located at the root of your project.
 
-```
+```json
 {
   "paths": [
       "src/lib/underscore.min.js",
