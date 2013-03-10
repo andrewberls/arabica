@@ -1,9 +1,9 @@
 {
-  "name": "kona-cli",
+  "name": "arabica",
   "version": "0.0.6",
-  "description": "Command-line build tool for Kona.js projects",
+  "description": "A build tool for CoffeeScript/JavaScript projects",
   "bin": {
-    "kona": "./bin/kona"
+    "arabica": "./bin/arabica"
   },
   "engines": {
     "node": "~0.8.2"
@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/andrewberls/kona-cli.git"
+    "url": "https://github.com/andrewberls/arabica.git"
   },
   "keywords": [
     "kona",
@@ -25,7 +25,7 @@
     "build",
     "compile"
   ],
-  "bugs": "https://github.com/andrewberls/kona-cli/issues",
+  "bugs": "https://github.com/andrewberls/arabica/issues",
   "author": "Andrew Berls",
   "license": "MIT"
 }

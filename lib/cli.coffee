@@ -1,4 +1,4 @@
-color    = require('cli-color')
+color  = require('cli-color')
 fs     = require('fs')
 files  = []
 config = {}

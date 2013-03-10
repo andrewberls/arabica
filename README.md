@@ -1,4 +1,4 @@
-kona-cli
+Arabica
 ========
 
-Command-line build tools for Kona.js projects
+A simple build tool for CoffeeScript/JavaScript projects. Documentation forthcoming.
