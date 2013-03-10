@@ -8,13 +8,19 @@ var path  = require('path'),
 var cmd = process.argv[2],
     arg = process.argv[3];
 
-if (cmd === "build") {
-  cli.build(arg);
-} else {
-  console.log(
-    (cmd === undefined ? "" : "Unrecognized command: " + cmd + "\n\n")+
-    "Usage: arabica COMMAND, where COMMAND is one of:\n"+
-    "  build [DIRECTORY=.]    # Build a project using the config.json file specified in DIRECTORY (defaults to current directory)\n"+
-    "\n\n"
-  )
+switch(cmd) {
+  case "build":
+    cli.build(arg);
+    break;
+  case "clean":
+    cli.clean();
+    break;
+  default:
+    console.log(
+      (cmd === undefined ? "" : "Unrecognized command: " + cmd + "\n\n")+
+      "Usage: arabica COMMAND, where COMMAND is one of:\n"+
+      "  build [DIRECTORY=.]    # Build a project using the config.json file specified in DIRECTORY (defaults to current directory)\n"+
+      "\n\n"
+    );
+    break;
 }
