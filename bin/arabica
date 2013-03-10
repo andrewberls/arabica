@@ -10,14 +10,11 @@ var cmd = process.argv[2],
 
 if (cmd === "build") {
   cli.build(arg);
-} else if (cmd === "new") {
-  // TODO: initialize new project
 } else {
   console.log(
     (cmd === undefined ? "" : "Unrecognized command: " + cmd + "\n\n")+
-    "Usage: kona COMMAND, where COMMAND is one of:\n"+
+    "Usage: arabica COMMAND, where COMMAND is one of:\n"+
     "  build [DIRECTORY=.]    # Build a project using the config.json file specified in DIRECTORY (defaults to current directory)\n"+
-    "  new NAME               # Create a new Kona project called NAME with a default directory structure and configuration"+
     "\n\n"
   )
 }
