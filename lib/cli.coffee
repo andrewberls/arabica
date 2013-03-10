@@ -6,7 +6,7 @@ config = {}
 
 # Return the contents of config.json, or exit with an error if it doesn't exist
 read_config = ->
-  config_path = "#{process.cwd()}/config.json"
+  config_path = "#{process.cwd()}/arabica.json"
   if fs.existsSync(config_path)
     try
       return JSON.parse(fs.readFileSync(config_path, 'utf8'));
