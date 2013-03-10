@@ -23,6 +23,9 @@ Project options are specified in `arabica.json`, located at the root of your pro
 
 `arabica clean` - Removes the output file specified in `arabica.json`
 
+## Example
+There is a simple example set up in the [example/ directory](https://github.com/andrewberls/arabica/tree/master/example).
+
 ## Installation
 Arabica is distributed as an [npm](http://npmjs.org/) package. To install, type
 ```
@@ -31,4 +34,4 @@ $ npm install arabica -g
 This will install the `arabica` executable on your system.
 
 ## License
-Arabica is licensed under MIT. For details, see the LICENSE file.
+Arabica is licensed under MIT. For details, see the [LICENSE file](https://github.com/andrewberls/arabica/blob/master/LICENSE).
