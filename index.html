@@ -23,25 +23,42 @@
   <!-- MAIN CONTENT -->
   <div id="main_content_wrap" class="outer">
     <section id="main_content" class="inner">
-      <h3>Getting Started</h3>
+      <p>Arabica is a simple tool for building CoffeeScript/JavaScript projects. It will concatenate and compile multiple .coffee/.js files into a single output, optionally minified using <a href="https://github.com/mishoo/UglifyJS">UglifyJS</a>.</p>
 
-      <p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+      <h3>Configuration</h3>
+
+      <p>Project options are specified in <code>arabica.json</code>, located at the root of your project.</p>
+
+      <pre><code>{
+  "paths": [
+      "src/lib/underscore.min.js",
+      "src/one.coffee",
+      "src/two.coffee",
+      "src/three.coffee",
+  ],
+  "out": "build.min.js",
+  "uglify": true
+}</code></pre>
+
+      <h3>Usage</h3>
+
+      <p><code>arabica build DIRECTORY</code> - Build the project using the <code>arabica.json</code> file located at DIRECTORY (defaults to current directory)</p>
+
+      <p><code>arabica clean</code> - Removes the output file specified in <code>arabica.json</code></p>
+
+      <h3>Installation</h3>
+
+      <p>Arabica is distributed as an <a href="https://npmjs.org/">npm</a> package. To install, type</p>
 
       <pre><code>$ npm install arabica -g</code></pre>
 
-      <p>This will install the <code>arabica</code> executable.</p>
+      <p>This will install the <code>arabica</code> executable on your system</p>
 
-      <h3>Designer Templates</h3>
+      <h3>Example</h3>
+      <p>There is a simple example set up in the <a href="https://github.com/andrewberls/arabica/tree/master/example">example/ directory</a>.</p>
 
-      <p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-      <h3>Rather Drive Stick?</h3>
-
-      <p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-      <h3>Support or Contact</h3>
-
-      <p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+      <h3>License</h3>
+      <p>Arabica is licensed under MIT. For more details, see the <a href="https://github.com/andrewberls/arabica/blob/master/LICENSE">LICENSE file</a>.</p>
 
     </section>
   </div><!-- #main_content_wrap-->
