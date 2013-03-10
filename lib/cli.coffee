@@ -13,7 +13,7 @@ read_config = ->
     catch err
       process.exit(1)
   else
-    console.error color.red("No config.json file found in #{process.cwd()}")
+    console.error color.red("No arabica.json file found in #{process.cwd()}")
     process.exit(1)
 
 

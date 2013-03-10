@@ -20,7 +20,7 @@
         return process.exit(1);
       }
     } else {
-      console.error(color.red("No config.json file found in " + (process.cwd())));
+      console.error(color.red("No arabica.json file found in " + (process.cwd())));
       return process.exit(1);
     }
   };
