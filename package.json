@@ -1,6 +1,6 @@
 {
   "name": "arabica",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A build tool for CoffeeScript/JavaScript projects",
   "bin": {
     "arabica": "./bin/arabica"

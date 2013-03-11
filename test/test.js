@@ -18,6 +18,18 @@ describe('Arabica', function() {
   // Space out Arabica's output
   beforeEach(function() { console.log("") });
 
+  var buildOutput = "var sayHello;\n\n"+
+    "console.log(\"Hello from one.coffee!\");\n\n"+
+    "sayHello(\"world\");\n\n"+
+    "sayHello = function(str) {\n"+
+    "  return console.log(\"Hello \" + str + \"!\");\n"+
+    "};\n";
+
+  after(function() {
+    // Put things back to normal
+    fs.writeFileSync('build.js', buildOutput);
+  });
+
   describe('#build()', function() {
     it('creates the output file', function() {
       arabica.build()
@@ -27,14 +39,8 @@ describe('Arabica', function() {
     // TODO: this is probably the grossest to test this.
     // However, for a trivial example it'll do for now.
     it('concatenates files successfully', function() {
-      var expected = "var sayHello;\n\n"+
-        "console.log(\"Hello from one.coffee!\");\n\n"+
-        "sayHello(\"world\");\n\n"+
-        "sayHello = function(str) {\n"+
-        "  return console.log(\"Hello \" + str + \"!\");\n"+
-        "};\n";
       var fileContents = fs.readFileSync('build.js').toString();
-      assert.equal ( expected, fileContents );
+      assert.equal ( buildOutput, fileContents );
     });
   });
 
