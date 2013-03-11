@@ -1,9 +1,8 @@
 {
   "paths": [
-      "src/jquery-1.9.1.min.js",
       "src/one.coffee",
       "src/two.coffee"
   ],
   "out": "build.js",
-  "uglify": true
+  "uglify": false
 }

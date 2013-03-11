@@ -1,3 +1,2 @@
-$ ->
-  console.log "Hello from one.coffee!"
-  sayHello("world")
+console.log "Hello from one.coffee!"
+sayHello("world")
