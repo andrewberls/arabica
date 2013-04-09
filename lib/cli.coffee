@@ -78,7 +78,7 @@ concatenate = ->
 compile = ->
   try
     coffee = require('coffee-script')
-    output = coffee.compile(fs.readFileSync('__in.coffee').toString(), { bare: on })
+    output = coffee.compile(fs.readFileSync('__in.coffee').toString())
 
     if config.uglify == true
       UglifyJS = require("uglify-js")
