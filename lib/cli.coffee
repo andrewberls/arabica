@@ -5,7 +5,8 @@ config = {}
 
 
 # Return the contents of arabica.json, or exit with an error if it doesn't exist
-read_config = (path) ->
+read_config = ->
+  path = "#{process.cwd()}/arabica.json"
   if fs.existsSync(path)
     try
       return JSON.parse(fs.readFileSync(path, 'utf8'));
@@ -33,7 +34,7 @@ exports.build = (dir) ->
       process.exit(1)
 
   # Read config JSON and supplement with default options
-  config = _.defaults read_config("#{process.cwd()}/arabica.json"), {
+  config = _.defaults read_config(), {
     "out": "build.js"
     "uglify": true
     "paths": []

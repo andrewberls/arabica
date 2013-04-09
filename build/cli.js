@@ -9,7 +9,9 @@
 
   config = {};
 
-  read_config = function(path) {
+  read_config = function() {
+    var path;
+    path = "" + (process.cwd()) + "/arabica.json";
     if (fs.existsSync(path)) {
       try {
         return JSON.parse(fs.readFileSync(path, 'utf8'));
@@ -34,7 +36,7 @@
         process.exit(1);
       }
     }
-    config = _.defaults(read_config("" + (process.cwd()) + "/arabica.json"), {
+    config = _.defaults(read_config(), {
       "out": "build.js",
       "uglify": true,
       "paths": []
