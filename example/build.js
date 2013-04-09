@@ -1,9 +1,12 @@
-var sayHello;
+(function() {
+  var sayHello;
 
-console.log("Hello from one.coffee!");
+  console.log("Hello from one.coffee!");
 
-sayHello("world");
+  sayHello("world");
 
-sayHello = function(str) {
-  return console.log("Hello " + str + "!");
-};
+  sayHello = function(str) {
+    return console.log("Hello " + str + "!");
+  };
+
+}).call(this);
