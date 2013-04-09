@@ -5,12 +5,12 @@ config = {}
 
 
 # Return the contents of arabica.json, or exit with an error if it doesn't exist
-read_config = ->
-  config_path = "#{process.cwd()}/arabica.json"
-  if fs.existsSync(config_path)
+read_config = (path) ->
+  if fs.existsSync(path)
     try
-      return JSON.parse(fs.readFileSync(config_path, 'utf8'));
+      return JSON.parse(fs.readFileSync(path, 'utf8'));
     catch err
+      console.error color.red("An error occured trying to parse arabica.json: #{err}")
       process.exit(1)
   else
     console.error color.red("No arabica.json file found in #{process.cwd()}")
@@ -33,7 +33,7 @@ exports.build = (dir) ->
       process.exit(1)
 
   # Read config JSON and supplement with default options
-  config = _.defaults read_config(), {
+  config = _.defaults read_config("#{process.cwd()}/arabica.json"), {
     "out": "build.js"
     "uglify": true
     "paths": []
@@ -76,15 +76,18 @@ concatenate = ->
 # Compile all concatenated coffeescripts and append to the output file,
 # minifying if specified in config
 compile = ->
-  coffee = require('coffee-script')
-  output = coffee.compile(fs.readFileSync('__in.coffee').toString(), { bare: on })
+  try
+    coffee = require('coffee-script')
+    output = coffee.compile(fs.readFileSync('__in.coffee').toString(), { bare: on })
 
-  if config.uglify == true
-    UglifyJS = require("uglify-js")
-    output   = UglifyJS.minify(output, { fromString: true }).code
+    if config.uglify == true
+      UglifyJS = require("uglify-js")
+      output   = UglifyJS.minify(output, { fromString: true }).code
 
-  fs.appendFileSync(config.out, output)
-  fs.unlinkSync('__in.coffee')
+    fs.appendFileSync(config.out, output)
+  finally
+    # Always delete tempfile, even if errors occur
+    fs.unlinkSync('__in.coffee')
 
 
 # Remove the output file specified in arabica.json

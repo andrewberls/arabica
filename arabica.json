@@ -1,0 +1,7 @@
+{
+  "paths": [
+    "lib/cli.coffee"
+  ],
+  "out": "build/cli.js",
+  "uglify": false
+}

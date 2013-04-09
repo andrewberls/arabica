@@ -10,13 +10,12 @@
 
   config = {};
 
-  read_config = function() {
-    var config_path;
-    config_path = "" + (process.cwd()) + "/arabica.json";
-    if (fs.existsSync(config_path)) {
+  read_config = function(path) {
+    if (fs.existsSync(path)) {
       try {
-        return JSON.parse(fs.readFileSync(config_path, 'utf8'));
+        return JSON.parse(fs.readFileSync(path, 'utf8'));
       } catch (err) {
+        console.error(color.red("An error occured trying to parse arabica.json: " + err));
         return process.exit(1);
       }
     } else {
@@ -36,7 +35,7 @@
         process.exit(1);
       }
     }
-    config = _.defaults(read_config(), {
+    config = _.defaults(read_config("" + (process.cwd()) + "/arabica.json"), {
       "out": "build.js",
       "uglify": true,
       "paths": []
@@ -86,18 +85,21 @@
 
   compile = function() {
     var UglifyJS, coffee, output;
-    coffee = require('coffee-script');
-    output = coffee.compile(fs.readFileSync('__in.coffee').toString(), {
-      bare: true
-    });
-    if (config.uglify === true) {
-      UglifyJS = require("uglify-js");
-      output = UglifyJS.minify(output, {
-        fromString: true
-      }).code;
+    try {
+      coffee = require('coffee-script');
+      output = coffee.compile(fs.readFileSync('__in.coffee').toString(), {
+        bare: true
+      });
+      if (config.uglify === true) {
+        UglifyJS = require("uglify-js");
+        output = UglifyJS.minify(output, {
+          fromString: true
+        }).code;
+      }
+      return fs.appendFileSync(config.out, output);
+    } finally {
+      fs.unlinkSync('__in.coffee');
     }
-    fs.appendFileSync(config.out, output);
-    return fs.unlinkSync('__in.coffee');
   };
 
   exports.clean = function() {
