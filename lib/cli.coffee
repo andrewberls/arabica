@@ -1,7 +1,19 @@
+# TODO: dir basename
+
+
 color  = require('cli-color')
 fs     = require('fs')
 files  = []
 config = {}
+
+
+# Attempt to cd to a directory
+chdir = (dir) ->
+  try
+    process.chdir(dir)
+  catch err
+    console.error color.red("Directory not found: #{dir} in #{process.cwd()}")
+    process.exit(1)
 
 
 # Return the contents of arabica.json, or exit with an error if it doesn't exist
@@ -23,15 +35,9 @@ read_config = ->
 #   paths: An array of file paths (.js or .coffee)
 #   out: The filename to output to
 #   uglify: Boolean indicating whether or not to minify output with Uglify.js
-exports.build = (dir) ->
+exports.build = (dir=null) ->
   _ = require('underscore')
-
-  if (dir)
-    try
-      process.chdir(dir)
-    catch err
-      console.error color.red("Directory not found: #{dir}")
-      process.exit(1)
+  chdir(dir) if dir?
 
   # Read config JSON and supplement with default options
   config = _.defaults read_config(), {
@@ -61,9 +67,10 @@ exports.build = (dir) ->
   # Concatenate all coffeescripts, and write them along with any ordinary javascripts
   concatenate()
   compile()
-  console.log color.green("Successfully compiled to #{config.out}")
+  console.log color.green("Successfully compiled #{process.cwd()}/#{config.out}")
 
 
+# Helper to build()
 # Put any javascripts at the head of the output file, and concatenate coffeescripts
 # to a temporary file for single compilation in compile()
 concatenate = ->
@@ -74,6 +81,7 @@ concatenate = ->
     fs.appendFileSync(outfile, file.content)
 
 
+# Helper to build()
 # Compile all concatenated coffeescripts and append to the output file,
 # minifying if specified in config
 compile = ->
@@ -92,11 +100,12 @@ compile = ->
 
 
 # Remove the output file specified in arabica.json
-exports.clean = ->
+exports.clean = (dir=null) ->
+  chdir(dir) if dir?
   config = read_config()
 
   if fs.existsSync(config.out)
     fs.unlinkSync(config.out)
-    console.log color.green("Removed #{config.out}.")
+    console.log color.green("Removed #{process.cwd()}/#{config.out}.")
   else
-    console.warn color.yellow("Nothing to do here (file not found: #{config.out})")
+    console.warn color.yellow("Nothing to do here (file not found: #{process.cwd()}/#{config.out})")

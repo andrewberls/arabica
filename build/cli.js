@@ -1,5 +1,5 @@
 (function() {
-  var color, compile, concatenate, config, files, fs, read_config;
+  var chdir, color, compile, concatenate, config, files, fs, read_config;
 
   color = require('cli-color');
 
@@ -8,6 +8,15 @@
   files = [];
 
   config = {};
+
+  chdir = function(dir) {
+    try {
+      return process.chdir(dir);
+    } catch (err) {
+      console.error(color.red("Directory not found: " + dir + " in " + (process.cwd())));
+      return process.exit(1);
+    }
+  };
 
   read_config = function() {
     var path;
@@ -27,14 +36,12 @@
 
   exports.build = function(dir) {
     var fileObj, path, _, _i, _len, _ref;
+    if (dir == null) {
+      dir = null;
+    }
     _ = require('underscore');
-    if (dir) {
-      try {
-        process.chdir(dir);
-      } catch (err) {
-        console.error(color.red("Directory not found: " + dir));
-        process.exit(1);
-      }
+    if (dir != null) {
+      chdir(dir);
     }
     config = _.defaults(read_config(), {
       "out": "build.js",
@@ -63,7 +70,7 @@
     }
     concatenate();
     compile();
-    return console.log(color.green("Successfully compiled to " + config.out));
+    return console.log(color.green("Successfully compiled " + (process.cwd()) + "/" + config.out));
   };
 
   concatenate = function() {
@@ -101,13 +108,19 @@
     }
   };
 
-  exports.clean = function() {
+  exports.clean = function(dir) {
+    if (dir == null) {
+      dir = null;
+    }
+    if (dir != null) {
+      chdir(dir);
+    }
     config = read_config();
     if (fs.existsSync(config.out)) {
       fs.unlinkSync(config.out);
-      return console.log(color.green("Removed " + config.out + "."));
+      return console.log(color.green("Removed " + (process.cwd()) + "/" + config.out + "."));
     } else {
-      return console.warn(color.yellow("Nothing to do here (file not found: " + config.out + ")"));
+      return console.warn(color.yellow("Nothing to do here (file not found: " + (process.cwd()) + "/" + config.out + ")"));
     }
   };
 
