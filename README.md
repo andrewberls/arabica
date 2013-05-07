@@ -19,9 +19,9 @@ Project options are specified in `arabica.json`, located at the root of your pro
 ```
 
 ## Usage
-`arabica build DIRECTORY` - Build the project using the `arabica.json` file located at `DIRECTORY` (defaults to current directory)
+`arabica build DIRECTORY=.` - Build the project using the `arabica.json` file located at `DIRECTORY` (defaults to current directory)
 
-`arabica clean` - Removes the output file specified in `arabica.json`
+`arabica clean DIRECTORY=.` - Remove the output file specified in arabica.json in DIRECTORY (defaults to current directory)
 
 ## Example
 There is a simple example set up in the [example/ directory](https://github.com/andrewberls/arabica/tree/master/example).
