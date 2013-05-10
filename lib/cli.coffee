@@ -96,7 +96,7 @@ compile = ->
     fs.appendFileSync(config.out, output)
   finally
     # Always delete tempfile, even if errors occur
-    fs.unlinkSync('__in.coffee')
+    fs.unlinkSync(tmp) if fs.existsSync(tmp)
 
 
 # Remove the output file specified in arabica.json
