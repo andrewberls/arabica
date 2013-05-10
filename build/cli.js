@@ -1,5 +1,5 @@
 (function() {
-  var chdir, color, compile, concatenate, config, files, fs, read_config;
+  var chdir, color, compile, concatenate, config, files, fs, read_config, tmp;
 
   color = require('cli-color');
 
@@ -8,6 +8,8 @@
   files = [];
 
   config = {};
+
+  tmp = "__in.coffee";
 
   chdir = function(dir) {
     try {
@@ -83,7 +85,7 @@
           case "js":
             return config.out;
           case "coffee":
-            return "__in.coffee";
+            return tmp;
         }
       })();
       _results.push(fs.appendFileSync(outfile, file.content));
@@ -95,7 +97,7 @@
     var UglifyJS, coffee, output;
     try {
       coffee = require('coffee-script');
-      output = coffee.compile(fs.readFileSync('__in.coffee').toString());
+      output = coffee.compile(fs.readFileSync(tmp).toString());
       if (config.uglify === true) {
         UglifyJS = require("uglify-js");
         output = UglifyJS.minify(output, {
@@ -104,7 +106,9 @@
       }
       return fs.appendFileSync(config.out, output);
     } finally {
-      fs.unlinkSync('__in.coffee');
+      if (fs.existsSync(tmp)) {
+        fs.unlinkSync(tmp);
+      }
     }
   };
 

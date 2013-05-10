@@ -23,6 +23,8 @@ Project options are specified in `arabica.json`, located at the root of your pro
 
 `arabica clean DIRECTORY=.` - Remove the output file specified in arabica.json in DIRECTORY (defaults to current directory)
 
+`arabica [-v | --version]` - Display the currently installed version
+
 ## Example
 There is a simple example set up in the [example/ directory](https://github.com/andrewberls/arabica/tree/master/example).
 

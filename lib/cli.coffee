@@ -5,6 +5,7 @@ color  = require('cli-color')
 fs     = require('fs')
 files  = []
 config = {}
+tmp    = "__in.coffee"
 
 
 # Attempt to cd to a directory
@@ -77,7 +78,7 @@ concatenate = ->
   for file in files
     outfile = switch file.language
       when "js"     then config.out
-      when "coffee" then "__in.coffee"
+      when "coffee" then tmp
     fs.appendFileSync(outfile, file.content)
 
 
@@ -87,7 +88,7 @@ concatenate = ->
 compile = ->
   try
     coffee = require('coffee-script')
-    output = coffee.compile(fs.readFileSync('__in.coffee').toString())
+    output = coffee.compile(fs.readFileSync(tmp).toString())
 
     if config.uglify == true
       UglifyJS = require("uglify-js")

@@ -8,6 +8,7 @@ var path  = require('path'),
 var cmd = process.argv[2],
     arg = process.argv[3];
 
+
 switch(cmd) {
   case "build":
     cli.build(arg);
@@ -15,13 +16,28 @@ switch(cmd) {
   case "clean":
     cli.clean(arg);
     break;
-  default:
-    console.log(
-      (cmd === undefined ? "" : "Unrecognized command: " + cmd + "\n\n")+
-      "Usage: arabica COMMAND, where COMMAND is one of:\n"+
-      "  build [DIRECTORY=.]    # Build a project using the arabica.json file specified in DIRECTORY (defaults to current directory)\n"+
-      "  clean [DIRECTORY=.]    # Remove the output file specified in arabica.json in DIRECTORY (defaults to current directory)"+
-      "\n"
-    );
+  case "-h":
+  case "--help":
+    help();
     break;
+  case "-v":
+  case "--version":
+    console.log("1.0.2");
+    break;
+  default:
+    help(cmd)
+    break;
+}
+
+
+function help(cmd) {
+  console.log(
+    (cmd === undefined ? "" : "Unrecognized command: " + cmd + "\n\n")+
+    "Usage: arabica COMMAND, where COMMAND is one of:\n"+
+    "  build [DIRECTORY=.]    # Build a project using the arabica.json file specified in DIRECTORY (defaults to current directory)\n"+
+    "  clean [DIRECTORY=.]    # Remove the output file specified in arabica.json in DIRECTORY (defaults to current directory)\n"+
+    "  [-v | --version]       # Display the currently installed version\n"+
+    "  [-h | --help]       # Display this menu"+
+    "\n"
+  );
 }
